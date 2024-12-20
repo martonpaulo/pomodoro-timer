@@ -1,7 +1,12 @@
+import { ThemeProvider } from "styled-components";
+import { Button } from "./components/Button";
+import { defaultTheme } from "./styles/themes/default";
+
 export function App() {
   return (
-    <div>
-      <h1>Hello, world!</h1>
-    </div>
+    <ThemeProvider theme={defaultTheme}>
+      <Button variant="primary" />
+      <Button variant="secondary" />
+    </ThemeProvider>
   );
 }
