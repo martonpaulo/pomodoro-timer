@@ -5,6 +5,5 @@ interface ButtonProps {
 }
 
 export function Button({ variant = "primary" }: ButtonProps) {
-  console.log(variant);
   return <ButtonContainer variant={variant}>Click me!</ButtonContainer>;
 }

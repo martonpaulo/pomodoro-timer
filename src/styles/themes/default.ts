@@ -1,5 +1,7 @@
 export const defaultTheme = {
-  primary: "orange",
-  secondary: "red",
+  primary: "#8257e6",
+  secondary: "orange",
+  danger: "red",
+  success: "green",
   white: "white",
 };
