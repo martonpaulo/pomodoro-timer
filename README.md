@@ -85,17 +85,17 @@ In the project directory, you can run the following scripts:
 
 Future improvements to consider:
 
+- [x] Change route to localhost:3000 🚦
+- [x] Add favicon to the project 🌟
 - [ ] Write project description in GitHub 📝
 - [ ] Write the name of technologies used in the project 📚
 - [ ] Write a description for the project 📝
-- [ ] Add favicon to the project 🌟
 - [ ] Add LICENSE file to the project 📜
 - [ ] Make the project responsive for mobile devices 📱
 - [ ] Host the project on GitHub Pages 🌐
 - [ ] Add linting and formatting to the project 🧹
 - [ ] Sort imports in the project 🧩
 - [ ] Add recording to the README file 📸
-- [ ] Change route to localhost:3000 🚦
 
 ## 📄 License
 
