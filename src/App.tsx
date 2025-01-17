@@ -8,7 +8,7 @@ import { defaultTheme } from "./styles/themes/default";
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <BrowserRouter>
+      <BrowserRouter basename="/pomodoro-timer">
         <Router />
       </BrowserRouter>
       <GlobalStyle />
