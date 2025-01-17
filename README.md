@@ -7,21 +7,21 @@
       alt="License"
     />
   </a>
-  
+
   <a href="https://github.com/martonpaulo/pomodoro-timer/commits/main/">
     <img
       src="https://img.shields.io/github/last-commit/martonpaulo/pomodoro-timer"
       alt="Last Commit"
     />
   </a>
-  
+
   <a href="https://github.com/martonpaulo/pomodoro-timer/blob/main/package.json">
     <img
       src="https://img.shields.io/github/package-json/dependency-version/martonpaulo/pomodoro-timer/react"
       alt="React Version"
     />
   </a>
-  
+
   <a href="https://github.com/search?q=repo%3Amartonpaulo%2Fpomodoro-timer++language%3ATypeScript">
     <img
       src="https://img.shields.io/github/package-json/dependency-version/martonpaulo/pomodoro-timer/dev/typescript"

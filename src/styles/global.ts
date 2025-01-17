@@ -13,9 +13,9 @@ export const GlobalStyle = createGlobalStyle`
  }
 
  body {
-	 font-family: Arial, sans-serif;
 	 background-color: ${(props) => props.theme["gray-900"]};
 	 color: ${(props) => props.theme["gray-300"]};
+	 -webkit-font-smoothing: antialiased;
  }
 
  body, input, textarea, button {
