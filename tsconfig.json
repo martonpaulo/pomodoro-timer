@@ -5,7 +5,10 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "baseUrl": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "outDir": "./dist",
     "rootDir": ".",
 
