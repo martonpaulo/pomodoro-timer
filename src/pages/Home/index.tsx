@@ -1,4 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Play } from "phosphor-react";
+import { useForm } from "react-hook-form";
+import * as zod from "zod";
 
 import {
   CountdownContainer,
@@ -10,16 +13,43 @@ import {
   TaskInput,
 } from "@/pages/Home/styles";
 
+const newCycleFormValidationSchema = zod.object({
+  task: zod.string().min(1, "Task name is required"),
+  minutesAmount: zod
+    .number()
+    .min(5, "Minimum amount of minutes is 5")
+    .max(60, "Maximum amount of minutes is 60"),
+});
+
+type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>;
+
 export function Home() {
+  const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
+    resolver: zodResolver(newCycleFormValidationSchema),
+    defaultValues: {
+      task: "",
+      minutesAmount: 25,
+    },
+  });
+
+  function handleCreateNewCycle(data: NewCycleFormData) {
+    console.log(data);
+    reset();
+  }
+
+  const task = watch("task");
+  const isSubmitDisabled = !task;
+
   return (
     <HomeContainer>
-      <form action="">
+      <form action="" onSubmit={handleSubmit(handleCreateNewCycle)}>
         <FormContainer>
           <label htmlFor="">I will work on </label>
           <TaskInput
             id="task"
             list="task-suggestions"
             placeholder="Give your task a name"
+            {...register("task")}
           />
 
           <datalist id="task-suggestions">
@@ -37,9 +67,10 @@ export function Home() {
             step={5}
             min={5}
             max={60}
+            {...register("minutesAmount", { valueAsNumber: true })}
           />
 
-          <span>minutes </span>
+          <span>minutes</span>
         </FormContainer>
 
         <CountdownContainer>
@@ -50,7 +81,7 @@ export function Home() {
           <span>0</span>
         </CountdownContainer>
 
-        <StartCountdownButton type="submit">
+        <StartCountdownButton type="submit" disabled={isSubmitDisabled}>
           <Play size={24} />
           Start
         </StartCountdownButton>

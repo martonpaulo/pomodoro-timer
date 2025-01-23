@@ -53,7 +53,18 @@ Inspired by a tutorial from [RocketSeat](https://www.rocketseat.com.br/).
 
 Initial design available on [Figma](https://www.figma.com/design/4tCa5znwYHpmT0bYGQp8u1/Pomodoro-Timer).
 
-This is a sleek and modern feed application built using the latest web technologies: **React**, **TypeScript**, **Vite**.
+This is a sleek and modern feed application built using the latest web technologies:
+
+- React
+- TypeScript
+- Vite
+- React Router DOM
+- GitHub Pages
+- ESLint
+- Phosphor Icons
+- Styled Components
+- React Hook Form
+- Zod
 
 ## 🌐 Live Project
 
