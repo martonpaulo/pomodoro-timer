@@ -65,6 +65,7 @@ This is a sleek and modern feed application built using the latest web technolog
 - Styled Components
 - React Hook Form
 - Zod
+- date-fns
 
 ## 🌐 Live Project
 
@@ -88,7 +89,7 @@ npm install
 
 In the project directory, you can run the following scripts:
 
-- `npm run dev` - Start the development server at `http://localhost:3000`
+- `npm run dev` - Start the development server at `http://localhost:3000/pomodoro-timer`
 - `npm run build` - Build the project for production, outputting to the `dist` folder
 - `npm run lint` - Lint the code using ESLint
 
