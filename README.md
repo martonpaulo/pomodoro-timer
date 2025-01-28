@@ -66,6 +66,7 @@ This is a sleek and modern feed application built using the latest web technolog
 - React Hook Form
 - Zod
 - date-fns
+- Context API
 
 ## 🌐 Live Project
 

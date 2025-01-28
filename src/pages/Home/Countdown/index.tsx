@@ -1,12 +1,33 @@
 import { differenceInSeconds } from "date-fns";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
+import { CyclesContext } from "@/contexts/CyclesContext";
 import { CountdownContainer, Separator } from "@/pages/Home/Countdown/styles";
 
 export function Countdown() {
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0);
+  const {
+    activeCycle,
+    activeCycleId,
+    markCurrentCycleAsFinished,
+    amountSecondsPassed,
+    setSecondsPassed,
+  } = useContext(CyclesContext);
 
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0;
+
+  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0;
+
+  const minutesAmount = Math.floor(currentSeconds / 60);
+  const secondsAmount = currentSeconds % 60;
+
+  const minutes = String(minutesAmount).padStart(2, "0");
+  const seconds = String(secondsAmount).padStart(2, "0");
+
+  useEffect(() => {
+    if (activeCycle) {
+      document.title = `${minutes}:${seconds} - Pomodoro Timer`;
+    }
+  }, [activeCycle, minutes, seconds]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -19,23 +40,11 @@ export function Countdown() {
         );
 
         if (secondsPassed >= totalSeconds) {
-          setCycles((state) =>
-            state.map((cycle) => {
-              if (cycle.id === activeCycleId) {
-                return {
-                  ...cycle,
-                  stopDate: new Date(),
-                };
-              } else {
-                return cycle;
-              }
-            })
-          );
-
-          setAmountSecondsPassed(totalSeconds);
+          markCurrentCycleAsFinished();
+          setSecondsPassed(totalSeconds);
           clearInterval(interval);
         } else {
-          setAmountSecondsPassed(secondsPassed);
+          setSecondsPassed(secondsPassed);
         }
       }, 1000);
     }
@@ -43,7 +52,13 @@ export function Countdown() {
     return () => {
       clearInterval(interval);
     };
-  }, [activeCycle, totalSeconds, activeCycleId]);
+  }, [
+    activeCycle,
+    totalSeconds,
+    activeCycleId,
+    markCurrentCycleAsFinished,
+    setSecondsPassed,
+  ]);
 
   return (
     <CountdownContainer>
