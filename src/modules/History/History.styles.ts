@@ -3,14 +3,12 @@ import styled from "styled-components";
 export const HistoryContainer = styled.main`
   flex: 1;
   padding: 3.5rem;
-
-  @media (max-width: 480px) {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 480px) {
+    padding: 3.5rem 0;
+  }
 
   h1 {
     font-size: 1.5rem;
@@ -25,16 +23,20 @@ export const HistoryList = styled.div`
 
   table {
     width: 100%;
-    border-collapse: collapse;
     min-width: 600px;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 1rem;
+      line-height: 1.6rem;
+      text-align: center;
+    }
 
     th {
       background-color: ${(props) => props.theme["gray-600"]};
-      padding: 1rem;
-      text-align: center;
       color: ${(props) => props.theme["gray-100"]};
       font-size: 1rem;
-      line-height: 1.6rem;
 
       &:first-child {
         border-top-left-radius: 8px;
@@ -51,31 +53,25 @@ export const HistoryList = styled.div`
     td {
       background: ${(props) => props.theme["gray-700"]};
       border-top: 4px solid ${(props) => props.theme["gray-800"]};
-      padding: 1rem;
-      font-size: 0.875rem;
-      line-height: 1.6rem;
-      text-align: center;
       color: ${(props) => props.theme["gray-100"]};
+      font-size: 0.875rem;
 
       &:first-child {
         width: 35%;
         padding-left: 1.5rem;
         text-align: left;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
+        border-radius: 4px 0 0 4px;
       }
 
       &:last-child {
         padding-right: 1.5rem;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
+        border-radius: 0 4px 4px 0;
       }
     }
   }
 
   @media (max-width: 768px) {
     table {
-      // Hide the table on smaller screens
       display: none;
     }
   }
@@ -112,7 +108,6 @@ export const Status = styled.span<StatusProps>`
 export const CardsContainer = styled.div`
   display: none;
 
-  // Show the cards on smaller screens
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
@@ -128,12 +123,6 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-`;
-
-export const CardItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 
   strong {
     color: ${(props) => props.theme["gray-100"]};
@@ -144,6 +133,12 @@ export const CardItem = styled.div`
     color: ${(props) => props.theme["gray-300"]};
     font-size: 0.875rem;
   }
+`;
+
+export const CardItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 
   @media (max-width: 480px) {
     flex-direction: column;
