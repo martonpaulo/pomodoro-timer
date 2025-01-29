@@ -1,15 +1,41 @@
 import styled from "styled-components";
 
-export const FormWrapper = styled.div`
+export const FormContainer = styled.div`
+  color: ${(props) => props.theme["gray-100"]};
+  font-size: 1.25rem;
+  font-weight: bold;
+`;
+
+export interface TaskTitleProps {
+  $hidden?: boolean;
+}
+
+export const TaskTitle = styled.h2<TaskTitleProps>`
+  display: none;
+
+  ${(props) => props.theme["only-small-screen"]} {
+    text-align: center;
+    display: ${(props) => (props.$hidden ? "none" : "flex")};
+  }
+`;
+
+export interface InputGroupProps {
+  $hidden?: boolean;
+}
+
+export const InputGroup = styled.div<InputGroupProps>`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  color: ${(props) => props.theme["gray-100"]};
-  font-size: 1.25rem;
-  font-weight: bold;
   flex-wrap: wrap;
+
+  ${(props) => props.theme["only-small-screen"]} {
+    flex-direction: column;
+    width: auto;
+    display: ${(props) => (props.$hidden ? "none" : "flex")};
+  }
 `;
 
 const BaseInput = styled.input`
@@ -43,12 +69,25 @@ export const TaskInput = styled(BaseInput)`
   &::-webkit-calendar-picker-indicator {
     display: none !important;
   }
+
+  &:-webkit-autofill {
+    transition: background-color 0s 999999s, color 0s 999999s !important;
+  }
+
+  ${(props) => props.theme["only-small-screen"]} {
+    flex: unset;
+  }
 `;
 
-export const InputWrapper = styled.div`
+export const TimerContainer = styled.div`
   display: flex;
   align-items: center;
-  align-self: center;
+  gap: 0.75rem;
+`;
+
+export const TimerInputGroup = styled.div`
+  display: flex;
+  align-items: center;
   border-bottom: 2px solid ${(props) => props.theme["gray-500"]};
 
   &:focus-within {
@@ -56,7 +95,7 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const MinutesInput = styled(BaseInput)`
+export const TimerInput = styled(BaseInput)`
   border: 0;
   box-shadow: none;
 
@@ -70,10 +109,9 @@ export const MinutesInput = styled(BaseInput)`
   }
 `;
 
-export const MinutesButton = styled.button`
+export const TimerButton = styled.button`
   background: transparent;
   border: 0;
-  box-shadow: none;
   color: ${(props) => props.theme["gray-500"]};
   font-size: 1.25rem;
   font-weight: bold;

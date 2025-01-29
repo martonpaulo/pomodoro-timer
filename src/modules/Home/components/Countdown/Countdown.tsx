@@ -66,7 +66,7 @@ export function Countdown() {
   ]);
 
   return (
-    <CountdownContainer>
+    <CountdownContainer $hidden={!activeCycle}>
       <span>{formattedMinutes[0]}</span>
       <span>{formattedMinutes[1]}</span>
       <Separator>:</Separator>

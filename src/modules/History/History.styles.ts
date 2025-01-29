@@ -6,7 +6,7 @@ export const HistoryContainer = styled.main`
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 480px) {
+  ${(props) => props.theme["only-small-screen"]} {
     padding: 3.5rem 0;
   }
 
@@ -70,7 +70,7 @@ export const HistoryList = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  ${(props) => props.theme["smaller-than-large-screen"]} {
     table {
       display: none;
     }
@@ -92,7 +92,7 @@ export const Status = styled.span<StatusProps>`
   align-items: center;
   gap: 0.5rem;
 
-  @media (min-width: 768px) {
+  ${(props) => props.theme["only-large-screen"]} {
     justify-content: center;
   }
 
@@ -108,7 +108,7 @@ export const Status = styled.span<StatusProps>`
 export const CardsContainer = styled.div`
   display: none;
 
-  @media (max-width: 768px) {
+  ${(props) => props.theme["smaller-than-large-screen"]} {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -140,7 +140,7 @@ export const CardItem = styled.div`
   align-items: center;
   gap: 1rem;
 
-  @media (max-width: 480px) {
+  ${(props) => props.theme["only-small-screen"]} {
     flex-direction: column;
     align-items: start;
   }

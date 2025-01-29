@@ -4,11 +4,14 @@ import { useFormContext } from "react-hook-form";
 
 import { CyclesContext } from "@/contexts/cycles/CyclesContext";
 import {
-  FormWrapper,
-  InputWrapper,
-  MinutesButton,
-  MinutesInput,
+  FormContainer,
+  InputGroup,
   TaskInput,
+  TaskTitle,
+  TimerButton,
+  TimerContainer,
+  TimerInput,
+  TimerInputGroup,
 } from "@/modules/Home/components/NewCycleForm/NewCycleForm.styles";
 
 const MINUTES_STEP = 5;
@@ -45,55 +48,61 @@ export function NewCycleForm() {
   const isIncreaseButtonDisabled = !!activeCycle || minutes >= MINUTES_MAX;
 
   return (
-    <FormWrapper>
-      <label htmlFor="taskName">I will work on</label>
-      <TaskInput
-        id="taskName"
-        list="task-suggestions"
-        placeholder="Give your task a name"
-        disabled={!!activeCycle}
-        {...register("taskName")}
-      />
+    <FormContainer>
+      <TaskTitle $hidden={!activeCycle}>{getValues("taskName")}</TaskTitle>
 
-      <datalist id="task-suggestions">
-        <option value="Preparing the presentation" />
-        <option value="Writing the essay" />
-        <option value="Reviewing the content" />
-      </datalist>
-
-      <label htmlFor="durationMinutes">for</label>
-
-      <InputWrapper>
-        <MinutesButton
-          type="button"
-          onClick={decreaseMinutes}
-          disabled={isDecreaseButtonDisabled}
-        >
-          <Minus size={16} />
-        </MinutesButton>
-
-        <MinutesInput
-          type="number"
-          id="durationMinutes"
-          placeholder="00"
-          step={MINUTES_STEP}
-          min={MINUTES_MIN}
-          max={MINUTES_MAX}
-          value={minutes}
+      <InputGroup $hidden={!!activeCycle}>
+        <label htmlFor="taskName">I will work on</label>
+        <TaskInput
+          id="taskName"
+          list="task-suggestions"
+          placeholder="Give your task a name"
           disabled={!!activeCycle}
-          {...register("durationMinutes", { valueAsNumber: true })}
+          {...register("taskName")}
         />
 
-        <MinutesButton
-          type="button"
-          onClick={increaseMinutes}
-          disabled={isIncreaseButtonDisabled}
-        >
-          <Plus size={16} />
-        </MinutesButton>
-      </InputWrapper>
+        <datalist id="task-suggestions">
+          <option value="Preparing the presentation" />
+          <option value="Writing the essay" />
+          <option value="Reviewing the content" />
+        </datalist>
 
-      <span>minutes</span>
-    </FormWrapper>
+        <TimerContainer>
+          <label htmlFor="durationMinutes">for</label>
+
+          <TimerInputGroup>
+            <TimerButton
+              type="button"
+              onClick={decreaseMinutes}
+              disabled={isDecreaseButtonDisabled}
+            >
+              <Minus size={16} />
+            </TimerButton>
+
+            <TimerInput
+              type="number"
+              id="durationMinutes"
+              placeholder="00"
+              step={MINUTES_STEP}
+              min={MINUTES_MIN}
+              max={MINUTES_MAX}
+              value={minutes}
+              disabled={!!activeCycle}
+              {...register("durationMinutes", { valueAsNumber: true })}
+            />
+
+            <TimerButton
+              type="button"
+              onClick={increaseMinutes}
+              disabled={isIncreaseButtonDisabled}
+            >
+              <Plus size={16} />
+            </TimerButton>
+          </TimerInputGroup>
+
+          <span>minutes</span>
+        </TimerContainer>
+      </InputGroup>
+    </FormContainer>
   );
 }

@@ -110,8 +110,8 @@ Here are some planned improvements and features to be implemented:
 - [x] Sort imports in the project 🧩
 - [x] Add linting and formatting to the project 🧹
 - [x] Write a detailed project description in GitHub 📝
+- [x] Make the project responsive for mobile devices 📱
 - [ ] Test scenarios and fix bugs 🐛
-- [ ] Make the project responsive for mobile devices 📱
 - [ ] Add a recording to the README file 📸
 
 ## 📄 License

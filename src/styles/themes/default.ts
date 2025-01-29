@@ -22,4 +22,11 @@ export const defaultTheme = {
   "red-700": "#7A1921",
 
   "yellow-500": "#FBA94C",
+
+  "only-small-screen": "@media (max-width: 480px)",
+  "only-medium-screen": "@media (min-width: 481px) and (max-width: 768px)",
+  "only-large-screen": "@media (min-width: 769px)",
+
+  "bigger-than-small-screen": "@media (min-width: 481px)",
+  "smaller-than-large-screen": "@media (max-width: 768px)",
 };

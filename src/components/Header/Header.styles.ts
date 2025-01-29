@@ -1,13 +1,35 @@
 import styled from "styled-components";
 
-export const HeaderContainer = styled.header`
+export interface HeaderContainerProps {
+  $hidden: boolean;
+}
+
+export const HeaderContainer = styled.header<HeaderContainerProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
 
+  ${(props) => props.theme["only-small-screen"]} {
+    display: ${(props) => (props.$hidden ? "none" : "flex")};
+  }
+
+  ${(props) => props.theme["smaller-than-large-screen"]} {
+    img {
+      display: none;
+    }
+  }
+
   nav {
     display: flex;
     gap: 0.5rem;
+
+    ${(props) => props.theme["smaller-than-large-screen"]} {
+      width: 100%;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+    }
 
     a {
       width: 3rem;
