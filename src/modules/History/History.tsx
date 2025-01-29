@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "date-fns";
+import { differenceInMilliseconds, formatDistanceToNow } from "date-fns";
 import { useContext } from "react";
 
 import { CyclesContext } from "@/contexts/cycles/CyclesContext";
@@ -10,6 +10,18 @@ import {
 
 export function History() {
   const { cycles } = useContext(CyclesContext);
+
+  const sortedCycles = [...cycles].sort((a, b) => {
+    const aDistance = differenceInMilliseconds(
+      new Date(),
+      new Date(a.startDate)
+    );
+    const bDistance = differenceInMilliseconds(
+      new Date(),
+      new Date(b.startDate)
+    );
+    return aDistance - bDistance;
+  });
 
   return (
     <HistoryContainer>
@@ -26,7 +38,7 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            {cycles.map((cycle) => (
+            {sortedCycles.map((cycle) => (
               <tr key={cycle.id}>
                 <td>{cycle.task}</td>
                 <td>{cycle.minutesAmount} minutes</td>

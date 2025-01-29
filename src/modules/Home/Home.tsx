@@ -39,6 +39,10 @@ export function Home() {
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     createNewCycle(data);
+  }
+
+  function handlePauseCurrentCycle() {
+    pauseCurrentCycle();
     reset();
   }
 
@@ -54,7 +58,7 @@ export function Home() {
         <Countdown />
 
         {activeCycle ? (
-          <PauseCountdownButton type="button" onClick={pauseCurrentCycle}>
+          <PauseCountdownButton type="button" onClick={handlePauseCurrentCycle}>
             <HandPalm size={24} />
             Pause
           </PauseCountdownButton>
