@@ -66,7 +66,9 @@ This is a sleek and modern feed application built using the latest web technolog
 - React Hook Form
 - Zod
 - date-fns
-- Context API
+- Context API + Reducer
+- immer
+- localStorage
 
 ## 🌐 Live Project
 
@@ -100,6 +102,7 @@ Future improvements to consider:
 
 - [x] Change route to localhost:3000 🚦
 - [x] Add favicon to the project 🌟
+- [ ] For the mobile version, change table to card list 📱
 - [ ] Write project description in GitHub 📝
 - [ ] Write the name of technologies used in the project 📚
 - [ ] Write a description for the project 📝

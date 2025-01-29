@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
-  base: "/pomodoro-timer/",
+  base: "/pomodoro-timer",
   resolve: {
     alias: [
       {

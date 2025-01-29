@@ -56,7 +56,7 @@ export function Home() {
         {activeCycle ? (
           <PauseCountdownButton type="button" onClick={pauseCurrentCycle}>
             <HandPalm size={24} />
-            Stop
+            Pause
           </PauseCountdownButton>
         ) : (
           <StartCountdownButton type="submit" disabled={isSubmitDisabled}>
