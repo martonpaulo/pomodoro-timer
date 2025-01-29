@@ -12,64 +12,66 @@ export function Countdown() {
     activeCycle,
     activeCycleId,
     markCurrentCycleAsFinished,
-    amountSecondsPassed,
-    setSecondsPassed,
+    elapsedSeconds,
+    updateElapsedSeconds,
   } = useContext(CyclesContext);
 
-  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0;
+  const totalCycleSeconds = activeCycle ? activeCycle.durationMinutes * 60 : 0;
 
-  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0;
+  const remainingTimeSeconds = activeCycle
+    ? totalCycleSeconds - elapsedSeconds
+    : 0;
 
-  const minutesAmount = Math.floor(currentSeconds / 60);
-  const secondsAmount = currentSeconds % 60;
+  const minutesRemaining = Math.floor(remainingTimeSeconds / 60);
+  const secondsRemaining = remainingTimeSeconds % 60;
 
-  const minutes = String(minutesAmount).padStart(2, "0");
-  const seconds = String(secondsAmount).padStart(2, "0");
+  const formattedMinutes = String(minutesRemaining).padStart(2, "0");
+  const formattedSeconds = String(secondsRemaining).padStart(2, "0");
 
   useEffect(() => {
     if (activeCycle) {
-      document.title = `${minutes}:${seconds} - Pomodoro Timer`;
+      document.title = `(${formattedMinutes}:${formattedSeconds}) Pomodoro Timer`;
     }
-  }, [activeCycle, minutes, seconds]);
+  }, [activeCycle, formattedMinutes, formattedSeconds]);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let countdownInterval: NodeJS.Timeout;
 
     if (activeCycle) {
-      interval = setInterval(() => {
-        const secondsPassed = differenceInSeconds(
+      countdownInterval = setInterval(() => {
+        const secondsElapsed = differenceInSeconds(
           new Date(),
           new Date(activeCycle.startDate)
         );
 
-        if (secondsPassed >= totalSeconds) {
+        if (secondsElapsed >= totalCycleSeconds) {
           markCurrentCycleAsFinished();
-          setSecondsPassed(totalSeconds);
-          clearInterval(interval);
+          updateElapsedSeconds(totalCycleSeconds);
+          clearInterval(countdownInterval);
         } else {
-          setSecondsPassed(secondsPassed);
+          updateElapsedSeconds(secondsElapsed);
         }
       }, 1000);
     }
 
     return () => {
-      clearInterval(interval);
+      clearInterval(countdownInterval);
     };
   }, [
     activeCycle,
-    totalSeconds,
+    totalCycleSeconds,
     activeCycleId,
     markCurrentCycleAsFinished,
-    setSecondsPassed,
+    updateElapsedSeconds,
   ]);
 
   return (
     <CountdownContainer>
-      <span>{minutes[0]}</span>
-      <span>{minutes[1]}</span>
+      <span>{formattedMinutes[0]}</span>
+      <span>{formattedMinutes[1]}</span>
       <Separator>:</Separator>
-      <span>{seconds[0]}</span>
-      <span>{seconds[1]}</span>
+      <span>{formattedSeconds[0]}</span>
+      <span>{formattedSeconds[1]}</span>
     </CountdownContainer>
   );
 }

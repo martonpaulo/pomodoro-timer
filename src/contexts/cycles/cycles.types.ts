@@ -1,10 +1,15 @@
+export enum CycleStatus {
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
+  STOPPED = "STOPPED",
+}
+
 export interface Cycle {
   id: string;
-  task: string;
-  minutesAmount: number;
+  taskName: string;
+  durationMinutes: number;
   startDate: Date;
-  pauseDate?: Date;
-  stopDate?: Date;
+  status: CycleStatus;
 }
 
 export interface CyclesState {

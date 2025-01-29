@@ -4,7 +4,7 @@ import {
   CyclesActions,
   CyclesActionTypes,
 } from "@/contexts/cycles/cycles.actions";
-import { CyclesState } from "@/contexts/cycles/cycles.types";
+import { CyclesState, CycleStatus } from "@/contexts/cycles/cycles.types";
 
 export const initialCyclesState: CyclesState = {
   cycles: [],
@@ -22,19 +22,6 @@ export function cyclesReducer(
         draft.activeCycleId = action.payload.newCycle.id;
       });
 
-    case CyclesActionTypes.PAUSE_CURRENT_CYCLE: {
-      const currentCycleIndex = state.cycles.findIndex(
-        (cycle) => cycle.id === state.activeCycleId
-      );
-
-      if (currentCycleIndex < 0) return state;
-
-      return produce(state, (draft) => {
-        draft.cycles[currentCycleIndex].pauseDate = new Date();
-        draft.activeCycleId = null;
-      });
-    }
-
     case CyclesActionTypes.STOP_CURRENT_CYCLE: {
       const currentCycleIndex = state.cycles.findIndex(
         (cycle) => cycle.id === state.activeCycleId
@@ -43,7 +30,20 @@ export function cyclesReducer(
       if (currentCycleIndex < 0) return state;
 
       return produce(state, (draft) => {
-        draft.cycles[currentCycleIndex].stopDate = new Date();
+        draft.cycles[currentCycleIndex].status = CycleStatus.STOPPED;
+        draft.activeCycleId = null;
+      });
+    }
+
+    case CyclesActionTypes.MARK_CURRENT_CYCLE_AS_COMPLETED: {
+      const currentCycleIndex = state.cycles.findIndex(
+        (cycle) => cycle.id === state.activeCycleId
+      );
+
+      if (currentCycleIndex < 0) return state;
+
+      return produce(state, (draft) => {
+        draft.cycles[currentCycleIndex].status = CycleStatus.COMPLETED;
         draft.activeCycleId = null;
       });
     }

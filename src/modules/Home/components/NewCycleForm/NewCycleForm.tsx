@@ -4,10 +4,9 @@ import { useFormContext } from "react-hook-form";
 
 import { CyclesContext } from "@/contexts/cycles/CyclesContext";
 import {
-  DecreaseButton,
   FormWrapper,
-  IncreaseButton,
   InputWrapper,
+  MinutesButton,
   MinutesInput,
   TaskInput,
 } from "@/modules/Home/components/NewCycleForm/NewCycleForm.styles";
@@ -20,18 +19,16 @@ export function NewCycleForm() {
   const { activeCycle } = useContext(CyclesContext);
   const { register, setValue, getValues } = useFormContext();
 
-  // Estado local para armazenar o valor atualizado
   const [minutes, setMinutes] = useState(MINUTES_MIN);
 
-  // Sincroniza o estado com o valor inicial do React Hook Form
   useEffect(() => {
-    const initialMinutes = getValues("minutesAmount") || MINUTES_MIN;
+    const initialMinutes = getValues("durationMinutes") || MINUTES_MIN;
     setMinutes(initialMinutes);
   }, [getValues]);
 
   function updateMinutes(newValue: number) {
     setMinutes(newValue);
-    setValue("minutesAmount", newValue);
+    setValue("durationMinutes", newValue);
   }
 
   function decreaseMinutes() {
@@ -49,13 +46,13 @@ export function NewCycleForm() {
 
   return (
     <FormWrapper>
-      <label htmlFor="task">I will work on</label>
+      <label htmlFor="taskName">I will work on</label>
       <TaskInput
-        id="task"
+        id="taskName"
         list="task-suggestions"
         placeholder="Give your task a name"
         disabled={!!activeCycle}
-        {...register("task")}
+        {...register("taskName")}
       />
 
       <datalist id="task-suggestions">
@@ -64,36 +61,36 @@ export function NewCycleForm() {
         <option value="Reviewing the content" />
       </datalist>
 
-      <label htmlFor="minutesAmount">for</label>
+      <label htmlFor="durationMinutes">for</label>
 
       <InputWrapper>
-        <DecreaseButton
+        <MinutesButton
           type="button"
           onClick={decreaseMinutes}
           disabled={isDecreaseButtonDisabled}
         >
           <Minus size={16} />
-        </DecreaseButton>
+        </MinutesButton>
 
         <MinutesInput
           type="number"
-          id="minutesAmount"
+          id="durationMinutes"
           placeholder="00"
           step={MINUTES_STEP}
           min={MINUTES_MIN}
           max={MINUTES_MAX}
-          value={minutes} // Agora usa o estado atualizado
+          value={minutes}
           disabled={!!activeCycle}
-          {...register("minutesAmount", { valueAsNumber: true })}
+          {...register("durationMinutes", { valueAsNumber: true })}
         />
 
-        <IncreaseButton
+        <MinutesButton
           type="button"
           onClick={increaseMinutes}
           disabled={isIncreaseButtonDisabled}
         >
           <Plus size={16} />
-        </IncreaseButton>
+        </MinutesButton>
       </InputWrapper>
 
       <span>minutes</span>

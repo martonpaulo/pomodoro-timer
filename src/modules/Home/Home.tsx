@@ -13,57 +13,57 @@ import {
   StartCountdownButton,
 } from "@/modules/Home/Home.styles";
 
-const newCycleFormValidationSchema = zod.object({
-  task: zod.string().min(1, "Task name is required"),
-  minutesAmount: zod
+const cycleFormValidationSchema = zod.object({
+  taskName: zod.string().min(1, "Task name is required"),
+  durationMinutes: zod
     .number()
-    .min(5, "Minimum amount of minutes is 5")
-    .max(60, "Maximum amount of minutes is 60"),
+    .min(5, "Minimum duration is 5 minutes")
+    .max(60, "Maximum duration is 60 minutes"),
 });
 
-type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>;
+type CycleFormData = zod.infer<typeof cycleFormValidationSchema>;
 
 export function Home() {
   const { activeCycle, createNewCycle, pauseCurrentCycle } =
     useContext(CyclesContext);
 
-  const newCycleForm = useForm<NewCycleFormData>({
-    resolver: zodResolver(newCycleFormValidationSchema),
+  const cycleForm = useForm<CycleFormData>({
+    resolver: zodResolver(cycleFormValidationSchema),
     defaultValues: {
-      task: "",
-      minutesAmount: 25,
+      taskName: "",
+      durationMinutes: 25,
     },
   });
 
-  const { handleSubmit, watch, reset } = newCycleForm;
+  const { handleSubmit, watch, reset } = cycleForm;
 
-  function handleCreateNewCycle(data: NewCycleFormData) {
-    createNewCycle(data);
+  function handleCycleCreation(formData: CycleFormData) {
+    createNewCycle(formData.taskName, formData.durationMinutes);
   }
 
-  function handlePauseCurrentCycle() {
+  function handleCyclePause() {
     pauseCurrentCycle();
     reset();
   }
 
-  const task = watch("task");
-  const isSubmitDisabled = !task;
+  const taskName = watch("taskName");
+  const isStartButtonDisabled = !taskName;
 
   return (
     <HomeContainer>
-      <form action="" onSubmit={handleSubmit(handleCreateNewCycle)}>
-        <FormProvider {...newCycleForm}>
+      <form onSubmit={handleSubmit(handleCycleCreation)}>
+        <FormProvider {...cycleForm}>
           <NewCycleForm />
         </FormProvider>
         <Countdown />
 
         {activeCycle ? (
-          <PauseCountdownButton type="button" onClick={handlePauseCurrentCycle}>
+          <PauseCountdownButton type="button" onClick={handleCyclePause}>
             <HandPalm size={24} />
-            Pause
+            Stop
           </PauseCountdownButton>
         ) : (
-          <StartCountdownButton type="submit" disabled={isSubmitDisabled}>
+          <StartCountdownButton type="submit" disabled={isStartButtonDisabled}>
             <Play size={24} />
             Start
           </StartCountdownButton>

@@ -2,20 +2,15 @@ import { createContext } from "react";
 
 import { Cycle } from "@/contexts/cycles/cycles.types";
 
-interface CreateCycleData {
-  task: string;
-  minutesAmount: number;
-}
-
 interface CycleContextType {
   cycles: Cycle[];
   activeCycle: Cycle | undefined;
   activeCycleId: string | null;
-  amountSecondsPassed: number;
-  markCurrentCycleAsFinished: () => void;
-  setSecondsPassed: (seconds: number) => void;
-  createNewCycle: (data: CreateCycleData) => void;
+  elapsedSeconds: number;
+  updateElapsedSeconds: (seconds: number) => void;
+  createNewCycle: (taskName: string, durationMinutes: number) => void;
   pauseCurrentCycle: () => void;
+  markCurrentCycleAsFinished: () => void;
 }
 
 export const CyclesContext = createContext({} as CycleContextType);

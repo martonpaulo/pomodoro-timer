@@ -49,70 +49,71 @@ Welcome to the **Pomodoro Timer** project! 🚀
 
 <br />
 
-Inspired by a tutorial from [RocketSeat](https://www.rocketseat.com.br/).
+This project is a sleek and modern Pomodoro Timer application designed to help you manage your time effectively using the Pomodoro Technique. The application is built with a focus on simplicity, usability, and modern web development practices.
 
-Initial design available on [Figma](https://www.figma.com/design/4tCa5znwYHpmT0bYGQp8u1/Pomodoro-Timer).
+Inspired by a tutorial from [RocketSeat](https://www.rocketseat.com.br/), the initial design is available on [Figma](https://www.figma.com/design/4tCa5znwYHpmT0bYGQp8u1/Pomodoro-Timer).
 
-This is a sleek and modern feed application built using the latest web technologies:
+## 🛠️ Technologies Used
 
-- React
-- TypeScript
-- Vite
-- React Router DOM
-- GitHub Pages
-- ESLint
-- Phosphor Icons
-- Styled Components
-- React Hook Form
-- Zod
-- date-fns
-- Context API + Reducer
-- immer
-- localStorage
+The project leverages the following technologies and tools:
+
+- **React**, **React Router DOM**, and **Context API + Reducer**: React for building UIs, React Router for routing, and Context API with Reducer for state management.
+- **TypeScript** and **Zod**: Type-safe JavaScript with TypeScript and schema validation with Zod.
+- **Vite** and **ESLint**: Fast build tool (Vite) and code quality tool (ESLint).
+- **Styled Components** and **Phosphor Icons**: Styling React components with Styled Components and using Phosphor Icons for flexible icons.
+- **React Hook Form** and **immer**: Managing form state with React Hook Form and handling immutable state with immer.
+- **date-fns**: Modern date utility library.
+- **GitHub Pages** and **localStorage**: Hosting the project on GitHub Pages and storing user data locally using localStorage.
 
 ## 🌐 Live Project
 
-This project is integrated with the GitHub Pages workflow. Once a commit is made, it is deployed and hosted by GitHub Pages.
+The project is integrated with GitHub Pages, ensuring that every commit triggers an automatic deployment. The live version of the application is hosted on GitHub Pages.
 
-Live project at: [martonpaulo.github.io/pomodoro-timer](https://martonpaulo.github.io/pomodoro-timer)
+🔗 **Live Project:** [martonpaulo.github.io/pomodoro-timer](https://martonpaulo.github.io/pomodoro-timer)
 
-For more information about me and other projects, check out: [martonpaulo.com](https://martonpaulo.com)
+For more information about me and my other projects, visit my portfolio: [martonpaulo.com](https://martonpaulo.com)
 
 ## 🚀 Getting Started
 
-To start working on this project, clone the repository and install the dependencies:
+To get started with the project, follow these steps:
 
-```bash
-git clone https://github.com/martonpaulo/pomodoro-timer.git
-cd pomodoro-timer
-npm install
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/martonpaulo/pomodoro-timer.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd pomodoro-timer
+   ```
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
 ## 📜 Available Scripts
 
 In the project directory, you can run the following scripts:
 
-- `npm run dev` - Start the development server at `http://localhost:3000/pomodoro-timer`
-- `npm run build` - Build the project for production, outputting to the `dist` folder
-- `npm run lint` - Lint the code using ESLint
+- **`npm run dev`** - Starts the development server at `http://localhost:3000/pomodoro-timer`.
+- **`npm run build`** - Builds the project for production, outputting the files to the `dist` folder.
+- **`npm run lint`** - Runs ESLint to lint the code and ensure code quality.
 
-## 🔧 To Be Implemented
+## 🔧 Future Improvements
 
-Future improvements to consider:
+Here are some planned improvements and features to be implemented:
 
-- [x] Change route to localhost:3000 🚦
-- [x] Add favicon to the project 🌟
-- [ ] For the mobile version, change table to card list 📱
-- [ ] Write project description in GitHub 📝
-- [ ] Write the name of technologies used in the project 📚
-- [ ] Write a description for the project 📝
-- [ ] Add LICENSE file to the project 📜
+- [x] Change route to `localhost:3000` 🚦
+- [x] Add a favicon to the project 🌟
+- [x] Document the technologies used in the project 📚
+- [x] Add a LICENSE file to the project 📜
+- [x] Host the project on GitHub Pages 🌐
+- [x] Sort imports in the project 🧩
+- [x] Add linting and formatting to the project 🧹
+- [ ] Test scenarios and fix bugs 🐛
+- [ ] Write a detailed project description in GitHub 📝
 - [ ] Make the project responsive for mobile devices 📱
-- [ ] Host the project on GitHub Pages 🌐
-- [ ] Add linting and formatting to the project 🧹
-- [ ] Sort imports in the project 🧩
-- [ ] Add recording to the README file 📸
+- [ ] Add a recording to the README file 📸
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the **MIT License**. For more details, see the [LICENSE](LICENSE) file.

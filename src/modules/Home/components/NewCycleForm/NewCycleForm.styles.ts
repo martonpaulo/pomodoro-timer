@@ -70,7 +70,7 @@ export const MinutesInput = styled(BaseInput)`
   }
 `;
 
-const BaseButton = styled.button`
+export const MinutesButton = styled.button`
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -88,7 +88,3 @@ const BaseButton = styled.button`
     color: transparent;
   }
 `;
-
-export const DecreaseButton = styled(BaseButton)``;
-
-export const IncreaseButton = styled(BaseButton)``;

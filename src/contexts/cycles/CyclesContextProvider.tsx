@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useReducer, useState } from "react";
 
 import {
   addNewCycleAction,
-  pauseCurrentCycleAction,
+  markCurrentCycleAsCompletedAction,
   stopCurrentCycleAction,
 } from "@/contexts/cycles/cycles.actions";
 import { cyclesReducer } from "@/contexts/cycles/cycles.reducer";
@@ -11,7 +11,7 @@ import {
   loadCyclesState,
   saveCyclesState,
 } from "@/contexts/cycles/cycles.storage";
-import { Cycle } from "@/contexts/cycles/cycles.types";
+import { Cycle, CycleStatus } from "@/contexts/cycles/cycles.types";
 import { CyclesContext } from "@/contexts/cycles/CyclesContext";
 
 interface CyclesContextProviderProps {
@@ -26,7 +26,7 @@ export function CyclesContextProvider({
   const { cycles, activeCycleId } = cyclesState;
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
 
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(() => {
+  const [elapsedSeconds, setElapsedSeconds] = useState(() => {
     if (activeCycle) {
       return differenceInSeconds(new Date(), new Date(activeCycle.startDate));
     }
@@ -37,30 +37,31 @@ export function CyclesContextProvider({
     saveCyclesState(cyclesState);
   }, [cyclesState]);
 
-  function setSecondsPassed(seconds: number) {
-    setAmountSecondsPassed(seconds);
+  function updateElapsedSeconds(seconds: number) {
+    setElapsedSeconds(seconds);
   }
 
   function markCurrentCycleAsFinished() {
-    dispatch(stopCurrentCycleAction());
+    dispatch(markCurrentCycleAsCompletedAction());
   }
 
-  function createNewCycle(data: { task: string; minutesAmount: number }) {
+  function createNewCycle(taskName: string, durationMinutes: number) {
     const id = String(new Date().getTime());
 
     const newCycle: Cycle = {
       id,
-      task: data.task,
-      minutesAmount: data.minutesAmount,
+      taskName: taskName,
+      durationMinutes: durationMinutes,
       startDate: new Date(),
+      status: CycleStatus.IN_PROGRESS,
     };
 
     dispatch(addNewCycleAction(newCycle));
-    setAmountSecondsPassed(0);
+    setElapsedSeconds(0);
   }
 
   function pauseCurrentCycle() {
-    dispatch(pauseCurrentCycleAction());
+    dispatch(stopCurrentCycleAction());
   }
 
   return (
@@ -70,8 +71,8 @@ export function CyclesContextProvider({
         activeCycle,
         activeCycleId,
         markCurrentCycleAsFinished,
-        amountSecondsPassed,
-        setSecondsPassed,
+        elapsedSeconds,
+        updateElapsedSeconds,
         createNewCycle,
         pauseCurrentCycle,
       }}

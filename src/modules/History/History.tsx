@@ -1,6 +1,7 @@
-import { differenceInMilliseconds, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { useContext } from "react";
 
+import { CycleStatus } from "@/contexts/cycles/cycles.types";
 import { CyclesContext } from "@/contexts/cycles/CyclesContext";
 import {
   HistoryContainer,
@@ -8,19 +9,26 @@ import {
   Status,
 } from "@/modules/History/History.styles";
 
+const cycleStatusMap = {
+  [CycleStatus.COMPLETED]: {
+    color: "green",
+    text: "Completed",
+  },
+  [CycleStatus.STOPPED]: {
+    color: "red",
+    text: "Stopped",
+  },
+  [CycleStatus.IN_PROGRESS]: {
+    color: "yellow",
+    text: "In progress",
+  },
+} as const;
+
 export function History() {
   const { cycles } = useContext(CyclesContext);
 
   const sortedCycles = [...cycles].sort((a, b) => {
-    const aDistance = differenceInMilliseconds(
-      new Date(),
-      new Date(a.startDate)
-    );
-    const bDistance = differenceInMilliseconds(
-      new Date(),
-      new Date(b.startDate)
-    );
-    return aDistance - bDistance;
+    return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
   });
 
   return (
@@ -33,32 +41,24 @@ export function History() {
             <tr>
               <th>Task</th>
               <th>Length</th>
-              <th>Start</th>
+              <th>Started</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
             {sortedCycles.map((cycle) => (
               <tr key={cycle.id}>
-                <td>{cycle.task}</td>
-                <td>{cycle.minutesAmount} minutes</td>
+                <td>{cycle.taskName}</td>
+                <td>{cycle.durationMinutes} minutes</td>
                 <td>
                   {formatDistanceToNow(new Date(cycle.startDate), {
                     addSuffix: true,
                   })}
                 </td>
                 <td>
-                  {cycle.stopDate && (
-                    <Status $statusColor="green">Completed</Status>
-                  )}
-
-                  {!cycle.stopDate && cycle.pauseDate && (
-                    <Status $statusColor="red">Paused</Status>
-                  )}
-
-                  {!cycle.stopDate && !cycle.pauseDate && (
-                    <Status $statusColor="yellow">In progress</Status>
-                  )}
+                  <Status $color={cycleStatusMap[cycle.status].color}>
+                    {cycleStatusMap[cycle.status].text}
+                  </Status>
                 </td>
               </tr>
             ))}
