@@ -4,14 +4,14 @@ import { useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as zod from "zod";
 
-import { CyclesContext } from "@/contexts/CyclesContext";
-import { Countdown } from "@/pages/Home/Countdown";
-import { NewCycleForm } from "@/pages/Home/NewCycleForm";
+import { CyclesContext } from "@/contexts/cycles/CyclesContext";
+import { Countdown } from "@/modules/Home/components/Countdown/Countdown";
+import { NewCycleForm } from "@/modules/Home/components/NewCycleForm/NewCycleForm";
 import {
   HomeContainer,
   PauseCountdownButton,
   StartCountdownButton,
-} from "@/pages/Home/styles";
+} from "@/modules/Home/Home.styles";
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, "Task name is required"),

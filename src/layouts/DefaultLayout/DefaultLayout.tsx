@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-import { Header } from "@/components/Header";
-import { LayoutContainer } from "@/layouts/DefaultLayout/styles";
+import { Header } from "@/components/Header/Header";
+import { LayoutContainer } from "@/layouts/DefaultLayout/DefaultLayout.styles";
 
 export function DefaultLayout() {
   return (

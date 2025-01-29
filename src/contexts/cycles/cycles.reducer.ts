@@ -1,38 +1,33 @@
 import { produce } from "immer";
 
-import { ActionTypes } from "@/reducers/cycles/actions";
+import {
+  CyclesActions,
+  CyclesActionTypes,
+} from "@/contexts/cycles/cycles.actions";
+import { CyclesState } from "@/contexts/cycles/cycles.types";
 
-export interface Cycle {
-  id: string;
-  task: string;
-  minutesAmount: number;
-  startDate: Date;
-  pauseDate?: Date;
-  stopDate?: Date;
-}
+export const initialCyclesState: CyclesState = {
+  cycles: [],
+  activeCycleId: null,
+};
 
-interface CyclesState {
-  cycles: Cycle[];
-  activeCycleId: string | null;
-}
-
-export function cyclesReducer(state: CyclesState, action: any) {
+export function cyclesReducer(
+  state: CyclesState,
+  action: CyclesActions
+): CyclesState {
   switch (action.type) {
-    case ActionTypes.ADD_NEW_CYCLE:
+    case CyclesActionTypes.ADD_NEW_CYCLE:
       return produce(state, (draft) => {
         draft.cycles.push(action.payload.newCycle);
         draft.activeCycleId = action.payload.newCycle.id;
       });
 
-    case ActionTypes.PAUSE_CURRENT_CYCLE: {
-      console.log("PAUSE_CURRENT_CYCLE");
+    case CyclesActionTypes.PAUSE_CURRENT_CYCLE: {
       const currentCycleIndex = state.cycles.findIndex(
         (cycle) => cycle.id === state.activeCycleId
       );
 
-      if (currentCycleIndex < 0) {
-        return state;
-      }
+      if (currentCycleIndex < 0) return state;
 
       return produce(state, (draft) => {
         draft.cycles[currentCycleIndex].pauseDate = new Date();
@@ -40,15 +35,12 @@ export function cyclesReducer(state: CyclesState, action: any) {
       });
     }
 
-    case ActionTypes.STOP_CURRENT_CYCLE: {
-      console.log("STOP_CURRENT_CYCLE");
+    case CyclesActionTypes.STOP_CURRENT_CYCLE: {
       const currentCycleIndex = state.cycles.findIndex(
         (cycle) => cycle.id === state.activeCycleId
       );
 
-      if (currentCycleIndex < 0) {
-        return state;
-      }
+      if (currentCycleIndex < 0) return state;
 
       return produce(state, (draft) => {
         draft.cycles[currentCycleIndex].stopDate = new Date();
