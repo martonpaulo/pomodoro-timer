@@ -109,8 +109,8 @@ Here are some planned improvements and features to be implemented:
 - [x] Host the project on GitHub Pages 🌐
 - [x] Sort imports in the project 🧩
 - [x] Add linting and formatting to the project 🧹
+- [x] Write a detailed project description in GitHub 📝
 - [ ] Test scenarios and fix bugs 🐛
-- [ ] Write a detailed project description in GitHub 📝
 - [ ] Make the project responsive for mobile devices 📱
 - [ ] Add a recording to the README file 📸
 

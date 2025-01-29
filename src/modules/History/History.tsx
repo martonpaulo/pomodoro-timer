@@ -4,6 +4,9 @@ import { useContext } from "react";
 import { CycleStatus } from "@/contexts/cycles/cycles.types";
 import { CyclesContext } from "@/contexts/cycles/CyclesContext";
 import {
+  Card,
+  CardItem,
+  CardsContainer,
   HistoryContainer,
   HistoryList,
   Status,
@@ -39,8 +42,8 @@ export function History() {
         <table>
           <thead>
             <tr>
-              <th>Task</th>
-              <th>Length</th>
+              <th>Task name</th>
+              <th>Duration</th>
               <th>Started</th>
               <th>Status</th>
             </tr>
@@ -65,6 +68,34 @@ export function History() {
           </tbody>
         </table>
       </HistoryList>
+
+      <CardsContainer>
+        {sortedCycles.map((cycle) => (
+          <Card key={cycle.id}>
+            <CardItem>
+              <strong>Task</strong> <span>{cycle.taskName}</span>
+            </CardItem>
+            <CardItem>
+              <strong>Duration</strong>{" "}
+              <span>{cycle.durationMinutes} minutes</span>
+            </CardItem>
+            <CardItem>
+              <strong>Started</strong>
+              <span>
+                {formatDistanceToNow(new Date(cycle.startDate), {
+                  addSuffix: true,
+                })}
+              </span>
+            </CardItem>
+            <CardItem>
+              <strong>Status</strong>
+              <Status $color={cycleStatusMap[cycle.status].color}>
+                {cycleStatusMap[cycle.status].text}
+              </Status>
+            </CardItem>
+          </Card>
+        ))}
+      </CardsContainer>
     </HistoryContainer>
   );
 }
