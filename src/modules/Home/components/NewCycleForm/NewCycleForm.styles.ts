@@ -76,6 +76,7 @@ export const TaskInput = styled(BaseInput)`
 
   ${(props) => props.theme["only-small-screen"]} {
     flex: unset;
+    width: calc(100vw - 6rem);
   }
 `;
 
