@@ -1,5 +1,5 @@
 import { Minus, Plus } from "phosphor-react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { CyclesContext } from "@/contexts/cycles/CyclesContext";
@@ -17,39 +17,24 @@ import {
 const MINUTES_STEP = 5;
 const MINUTES_MIN = 5;
 const MINUTES_MAX = 60;
+const DEFAULT_MINUTES = 25;
 
 export function NewCycleForm() {
   const { activeCycle } = useContext(CyclesContext);
-  const { register, setValue, getValues } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
 
-  const [minutes, setMinutes] = useState(MINUTES_MIN);
-
-  useEffect(() => {
-    const initialMinutes = getValues("taskDuration") || MINUTES_MIN;
-    setMinutes(initialMinutes);
-  }, [getValues]);
+  const minutes = watch("taskDuration", DEFAULT_MINUTES);
 
   function updateMinutes(newValue: number) {
-    setMinutes(newValue);
-    setValue("taskDuration", newValue);
+    setValue(
+      "taskDuration",
+      Math.min(Math.max(newValue, MINUTES_MIN), MINUTES_MAX)
+    );
   }
-
-  function decreaseMinutes() {
-    const newValue = Math.max(minutes - MINUTES_STEP, MINUTES_MIN);
-    updateMinutes(newValue);
-  }
-
-  function increaseMinutes() {
-    const newValue = Math.min(minutes + MINUTES_STEP, MINUTES_MAX);
-    updateMinutes(newValue);
-  }
-
-  const isDecreaseButtonDisabled = !!activeCycle || minutes <= MINUTES_MIN;
-  const isIncreaseButtonDisabled = !!activeCycle || minutes >= MINUTES_MAX;
 
   return (
     <FormContainer>
-      <TaskTitle $hidden={!activeCycle}>{getValues("taskTitle")}</TaskTitle>
+      <TaskTitle $hidden={!activeCycle}>{watch("taskTitle")}</TaskTitle>
 
       <InputGroup $hidden={!!activeCycle}>
         <label htmlFor="taskTitle">I will work on</label>
@@ -73,8 +58,8 @@ export function NewCycleForm() {
           <TimerInputGroup>
             <TimerButton
               type="button"
-              onClick={decreaseMinutes}
-              disabled={isDecreaseButtonDisabled}
+              onClick={() => updateMinutes(minutes - MINUTES_STEP)}
+              disabled={!!activeCycle || minutes <= MINUTES_MIN}
             >
               <Minus size={16} />
             </TimerButton>
@@ -93,8 +78,8 @@ export function NewCycleForm() {
 
             <TimerButton
               type="button"
-              onClick={increaseMinutes}
-              disabled={isIncreaseButtonDisabled}
+              onClick={() => updateMinutes(minutes + MINUTES_STEP)}
+              disabled={!!activeCycle || minutes >= MINUTES_MAX}
             >
               <Plus size={16} />
             </TimerButton>

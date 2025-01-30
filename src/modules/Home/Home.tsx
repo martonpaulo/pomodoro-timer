@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { HandPalm, Play } from "phosphor-react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as zod from "zod";
 
@@ -9,8 +9,8 @@ import { Countdown } from "@/modules/Home/components/Countdown/Countdown";
 import { NewCycleForm } from "@/modules/Home/components/NewCycleForm/NewCycleForm";
 import {
   HomeWrapper,
-  PauseButton,
   StartButton,
+  StopButton,
 } from "@/modules/Home/Home.styles";
 
 const taskFormSchema = zod.object({
@@ -24,31 +24,33 @@ const taskFormSchema = zod.object({
 type TaskFormData = zod.infer<typeof taskFormSchema>;
 
 export function Home() {
-  const { activeCycle, createNewCycle, pauseCurrentCycle } =
+  const { activeCycle, createNewCycle, stopCurrentCycle } =
     useContext(CyclesContext);
 
   const taskForm = useForm<TaskFormData>({
     resolver: zodResolver(taskFormSchema),
-    defaultValues: {
-      taskTitle: "",
-      taskDuration: 25,
-    },
+    defaultValues: { taskTitle: "", taskDuration: 25 },
   });
 
   const { handleSubmit, watch, reset } = taskForm;
-
-  function handleCreateCycle(formData: TaskFormData) {
-    createNewCycle(formData.taskTitle, formData.taskDuration);
-    reset();
-  }
-
-  function handlePauseCycle() {
-    pauseCurrentCycle();
-    reset();
-  }
-
   const taskTitle = watch("taskTitle");
-  const isStartDisabled = !taskTitle;
+
+  useEffect(() => {
+    reset({
+      taskTitle: activeCycle?.taskTitle || "",
+      taskDuration: activeCycle?.taskDuration || 25,
+    });
+  }, [activeCycle, reset]);
+
+  function handleCreateCycle({ taskTitle, taskDuration }: TaskFormData) {
+    createNewCycle(taskTitle, taskDuration);
+    reset();
+  }
+
+  function handleStopCycle() {
+    stopCurrentCycle();
+    reset();
+  }
 
   return (
     <HomeWrapper>
@@ -59,12 +61,12 @@ export function Home() {
         <Countdown />
 
         {activeCycle ? (
-          <PauseButton type="button" onClick={handlePauseCycle}>
+          <StopButton type="button" onClick={handleStopCycle}>
             <HandPalm size={24} />
             Stop
-          </PauseButton>
+          </StopButton>
         ) : (
-          <StartButton type="submit" disabled={isStartDisabled}>
+          <StartButton type="submit" disabled={!taskTitle}>
             <Play size={24} />
             Start
           </StartButton>

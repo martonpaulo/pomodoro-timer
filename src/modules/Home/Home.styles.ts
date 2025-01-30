@@ -54,7 +54,7 @@ export const StartButton = styled(BaseButton)`
   }
 `;
 
-export const PauseButton = styled(BaseButton)`
+export const StopButton = styled(BaseButton)`
   background: ${(props) => props.theme["red-500"]};
 
   &:not(:disabled):hover {

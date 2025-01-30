@@ -9,7 +9,7 @@ interface CycleContextType {
   elapsedSeconds: number;
   updateElapsedSeconds: (seconds: number) => void;
   createNewCycle: (taskTitle: string, taskDuration: number) => void;
-  pauseCurrentCycle: () => void;
+  stopCurrentCycle: () => void;
   markCurrentCycleAsFinished: () => void;
 }
 

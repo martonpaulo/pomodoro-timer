@@ -31,6 +31,8 @@ export function Countdown() {
   useEffect(() => {
     if (activeCycle) {
       document.title = `(${formattedMinutes}:${formattedSeconds}) Pomodoro Timer`;
+    } else {
+      document.title = "Pomodoro Timer";
     }
   }, [activeCycle, formattedMinutes, formattedSeconds]);
 

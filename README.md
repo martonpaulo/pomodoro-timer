@@ -111,7 +111,7 @@ Here are some planned improvements and features to be implemented:
 - [x] Add linting and formatting to the project 🧹
 - [x] Write a detailed project description in GitHub 📝
 - [x] Make the project responsive for mobile devices 📱
-- [ ] Test scenarios and fix bugs 🐛
+- [x] Test scenarios and fix bugs 🐛
 - [ ] Add a recording to the README file 📸
 
 ## 📄 License

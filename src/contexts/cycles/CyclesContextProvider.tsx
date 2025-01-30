@@ -60,7 +60,7 @@ export function CyclesContextProvider({
     setElapsedSeconds(0);
   }
 
-  function pauseCurrentCycle() {
+  function stopCurrentCycle() {
     dispatch(stopCurrentCycleAction());
   }
 
@@ -74,7 +74,7 @@ export function CyclesContextProvider({
         elapsedSeconds,
         updateElapsedSeconds,
         createNewCycle,
-        pauseCurrentCycle,
+        stopCurrentCycle,
       }}
     >
       {children}

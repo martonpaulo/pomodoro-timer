@@ -13,13 +13,18 @@ export const HistoryContainer = styled.main`
   h1 {
     font-size: 1.5rem;
     color: ${(props) => props.theme["gray-100"]};
+    margin-bottom: 2rem;
   }
+`;
+
+export const NoHistory = styled.p`
+  line-height: 1.75rem;
+  color: ${(props) => props.theme["gray-300"]};
 `;
 
 export const HistoryList = styled.div`
   flex: 1;
   overflow: auto;
-  margin-top: 2rem;
 
   table {
     width: 100%;
@@ -71,9 +76,7 @@ export const HistoryList = styled.div`
   }
 
   ${(props) => props.theme["smaller-than-large-screen"]} {
-    table {
-      display: none;
-    }
+    display: none;
   }
 `;
 

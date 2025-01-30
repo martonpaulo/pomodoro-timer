@@ -54,8 +54,13 @@ const BaseInput = styled.input`
 
 export const TaskInput = styled(BaseInput)`
   flex: 1;
+  min-width: 20rem;
   border: 0;
   border-bottom: 2px solid ${(props) => props.theme["gray-500"]};
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:focus {
     box-shadow: none;
