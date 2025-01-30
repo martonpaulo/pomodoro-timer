@@ -45,7 +45,7 @@ Welcome to the **Pomodoro Timer** project! 🚀
 
 <br />
 
-<img alt="Recording of live application" src="public/recording.gif" />
+<img alt="Recording of live application" src="public/uploads/recording.gif" />
 
 <br />
 
@@ -112,7 +112,7 @@ Here are some planned improvements and features to be implemented:
 - [x] Write a detailed project description in GitHub 📝
 - [x] Make the project responsive for mobile devices 📱
 - [x] Test scenarios and fix bugs 🐛
-- [ ] Add a recording to the README file 📸
+- [x] Add a recording to the README file 📸
 
 ## 📄 License
 
