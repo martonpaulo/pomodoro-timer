@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export interface CountdownContainerProps {
+interface CountdownContainerProps {
   $hidden: boolean;
 }
 

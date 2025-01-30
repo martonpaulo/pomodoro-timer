@@ -45,13 +45,13 @@ export function CyclesContextProvider({
     dispatch(markCurrentCycleAsCompletedAction());
   }
 
-  function createNewCycle(taskName: string, durationMinutes: number) {
+  function createNewCycle(taskTitle: string, taskDuration: number) {
     const id = String(new Date().getTime());
 
     const newCycle: Cycle = {
       id,
-      taskName: taskName,
-      durationMinutes: durationMinutes,
+      taskTitle,
+      taskDuration,
       startDate: new Date(),
       status: CycleStatus.IN_PROGRESS,
     };

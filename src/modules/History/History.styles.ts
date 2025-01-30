@@ -83,7 +83,7 @@ const STATUS_COLORS = {
   green: "green-500",
 } as const;
 
-export interface StatusProps {
+interface StatusProps {
   $color: keyof typeof STATUS_COLORS;
 }
 

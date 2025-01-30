@@ -8,67 +8,68 @@ import { CyclesContext } from "@/contexts/cycles/CyclesContext";
 import { Countdown } from "@/modules/Home/components/Countdown/Countdown";
 import { NewCycleForm } from "@/modules/Home/components/NewCycleForm/NewCycleForm";
 import {
-  HomeContainer,
-  PauseCountdownButton,
-  StartCountdownButton,
+  HomeWrapper,
+  PauseButton,
+  StartButton,
 } from "@/modules/Home/Home.styles";
 
-const cycleFormValidationSchema = zod.object({
-  taskName: zod.string().min(1, "Task name is required"),
-  durationMinutes: zod
+const taskFormSchema = zod.object({
+  taskTitle: zod.string().min(1, "Task title is required"),
+  taskDuration: zod
     .number()
     .min(5, "Minimum duration is 5 minutes")
     .max(60, "Maximum duration is 60 minutes"),
 });
 
-type CycleFormData = zod.infer<typeof cycleFormValidationSchema>;
+type TaskFormData = zod.infer<typeof taskFormSchema>;
 
 export function Home() {
   const { activeCycle, createNewCycle, pauseCurrentCycle } =
     useContext(CyclesContext);
 
-  const cycleForm = useForm<CycleFormData>({
-    resolver: zodResolver(cycleFormValidationSchema),
+  const taskForm = useForm<TaskFormData>({
+    resolver: zodResolver(taskFormSchema),
     defaultValues: {
-      taskName: "",
-      durationMinutes: 25,
+      taskTitle: "",
+      taskDuration: 25,
     },
   });
 
-  const { handleSubmit, watch, reset } = cycleForm;
+  const { handleSubmit, watch, reset } = taskForm;
 
-  function handleCycleCreation(formData: CycleFormData) {
-    createNewCycle(formData.taskName, formData.durationMinutes);
+  function handleCreateCycle(formData: TaskFormData) {
+    createNewCycle(formData.taskTitle, formData.taskDuration);
+    reset();
   }
 
-  function handleCyclePause() {
+  function handlePauseCycle() {
     pauseCurrentCycle();
     reset();
   }
 
-  const taskName = watch("taskName");
-  const isStartButtonDisabled = !taskName;
+  const taskTitle = watch("taskTitle");
+  const isStartDisabled = !taskTitle;
 
   return (
-    <HomeContainer>
-      <form onSubmit={handleSubmit(handleCycleCreation)}>
-        <FormProvider {...cycleForm}>
+    <HomeWrapper>
+      <form onSubmit={handleSubmit(handleCreateCycle)}>
+        <FormProvider {...taskForm}>
           <NewCycleForm />
         </FormProvider>
         <Countdown />
 
         {activeCycle ? (
-          <PauseCountdownButton type="button" onClick={handleCyclePause}>
+          <PauseButton type="button" onClick={handlePauseCycle}>
             <HandPalm size={24} />
             Stop
-          </PauseCountdownButton>
+          </PauseButton>
         ) : (
-          <StartCountdownButton type="submit" disabled={isStartButtonDisabled}>
+          <StartButton type="submit" disabled={isStartDisabled}>
             <Play size={24} />
             Start
-          </StartCountdownButton>
+          </StartButton>
         )}
       </form>
-    </HomeContainer>
+    </HomeWrapper>
   );
 }

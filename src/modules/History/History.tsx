@@ -51,8 +51,8 @@ export function History() {
           <tbody>
             {sortedCycles.map((cycle) => (
               <tr key={cycle.id}>
-                <td>{cycle.taskName}</td>
-                <td>{cycle.durationMinutes} minutes</td>
+                <td>{cycle.taskTitle}</td>
+                <td>{cycle.taskDuration} minutes</td>
                 <td>
                   {formatDistanceToNow(new Date(cycle.startDate), {
                     addSuffix: true,
@@ -73,11 +73,11 @@ export function History() {
         {sortedCycles.map((cycle) => (
           <Card key={cycle.id}>
             <CardItem>
-              <strong>Task</strong> <span>{cycle.taskName}</span>
+              <strong>Task</strong> <span>{cycle.taskTitle}</span>
             </CardItem>
             <CardItem>
               <strong>Duration</strong>{" "}
-              <span>{cycle.durationMinutes} minutes</span>
+              <span>{cycle.taskDuration} minutes</span>
             </CardItem>
             <CardItem>
               <strong>Started</strong>

@@ -6,8 +6,8 @@ export enum CycleStatus {
 
 export interface Cycle {
   id: string;
-  taskName: string;
-  durationMinutes: number;
+  taskTitle: string;
+  taskDuration: number;
   startDate: Date;
   status: CycleStatus;
 }

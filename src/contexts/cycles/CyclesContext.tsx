@@ -8,7 +8,7 @@ interface CycleContextType {
   activeCycleId: string | null;
   elapsedSeconds: number;
   updateElapsedSeconds: (seconds: number) => void;
-  createNewCycle: (taskName: string, durationMinutes: number) => void;
+  createNewCycle: (taskTitle: string, taskDuration: number) => void;
   pauseCurrentCycle: () => void;
   markCurrentCycleAsFinished: () => void;
 }

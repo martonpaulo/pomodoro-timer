@@ -16,7 +16,7 @@ export function Countdown() {
     updateElapsedSeconds,
   } = useContext(CyclesContext);
 
-  const totalCycleSeconds = activeCycle ? activeCycle.durationMinutes * 60 : 0;
+  const totalCycleSeconds = activeCycle ? activeCycle.taskDuration * 60 : 0;
 
   const remainingTimeSeconds = activeCycle
     ? totalCycleSeconds - elapsedSeconds

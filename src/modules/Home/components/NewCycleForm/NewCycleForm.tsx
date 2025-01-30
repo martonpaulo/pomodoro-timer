@@ -25,13 +25,13 @@ export function NewCycleForm() {
   const [minutes, setMinutes] = useState(MINUTES_MIN);
 
   useEffect(() => {
-    const initialMinutes = getValues("durationMinutes") || MINUTES_MIN;
+    const initialMinutes = getValues("taskDuration") || MINUTES_MIN;
     setMinutes(initialMinutes);
   }, [getValues]);
 
   function updateMinutes(newValue: number) {
     setMinutes(newValue);
-    setValue("durationMinutes", newValue);
+    setValue("taskDuration", newValue);
   }
 
   function decreaseMinutes() {
@@ -49,16 +49,16 @@ export function NewCycleForm() {
 
   return (
     <FormContainer>
-      <TaskTitle $hidden={!activeCycle}>{getValues("taskName")}</TaskTitle>
+      <TaskTitle $hidden={!activeCycle}>{getValues("taskTitle")}</TaskTitle>
 
       <InputGroup $hidden={!!activeCycle}>
-        <label htmlFor="taskName">I will work on</label>
+        <label htmlFor="taskTitle">I will work on</label>
         <TaskInput
-          id="taskName"
+          id="taskTitle"
           list="task-suggestions"
           placeholder="Give your task a name"
           disabled={!!activeCycle}
-          {...register("taskName")}
+          {...register("taskTitle")}
         />
 
         <datalist id="task-suggestions">
@@ -68,7 +68,7 @@ export function NewCycleForm() {
         </datalist>
 
         <TimerContainer>
-          <label htmlFor="durationMinutes">for</label>
+          <label htmlFor="taskDuration">for</label>
 
           <TimerInputGroup>
             <TimerButton
@@ -81,14 +81,14 @@ export function NewCycleForm() {
 
             <TimerInput
               type="number"
-              id="durationMinutes"
+              id="taskDuration"
               placeholder="00"
               step={MINUTES_STEP}
               min={MINUTES_MIN}
               max={MINUTES_MAX}
               value={minutes}
               disabled={!!activeCycle}
-              {...register("durationMinutes", { valueAsNumber: true })}
+              {...register("taskDuration", { valueAsNumber: true })}
             />
 
             <TimerButton

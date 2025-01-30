@@ -6,7 +6,7 @@ export const FormContainer = styled.div`
   font-weight: bold;
 `;
 
-export interface TaskTitleProps {
+interface TaskTitleProps {
   $hidden?: boolean;
 }
 
@@ -19,7 +19,7 @@ export const TaskTitle = styled.h2<TaskTitleProps>`
   }
 `;
 
-export interface InputGroupProps {
+interface InputGroupProps {
   $hidden?: boolean;
 }
 
